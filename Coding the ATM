@@ -1,0 +1,105 @@
+#Author: Hacer AFLAZ
+#CODING ATM
+
+
+# Step1: start with entering the password
+print("Welcome, Please insert your card.")
+password= "TARDIS"
+pin=input("Enter Your PIN: ")
+control=0
+
+account1=2000
+account2=1250
+
+# Step2: Check the password whether it is true or not. give 3 chance.
+for i in range(3):
+    if password==pin:
+        print("Your password is correct. Please, select the transaction you want.")
+        break
+if password!=pin:   
+    print("Your password is wrong. Please try again.")
+    
+
+
+menu= """1-BALANCE INQUIRY      3-CASH DEPOSIT
+2-WITHDRAWAL           4-TRANSFER 
+"""   
+
+#print(menu)
+#transaction=input()         # If you put them here, it can't be seen after the transaction is done due to it is out of while. 
+
+# Step3: Selecting transaction.
+while True:
+
+    print(menu)
+    transaction=input()
+    if transaction=='1':
+    
+        print("You have", account1, "$ in your account1.")
+        print("You have", account2, "$ in your account2.")
+        
+
+    elif transaction=='2':
+        print("Which account you will use?")
+        account=input()
+        # Step4: Compare the amount and accounts. Update the balance.
+        if account=='account1':
+            amount=int(input("Enter the amount to withdraw: "))
+
+            if amount>account1:
+                print("Sorry, insufficient balance.")
+            elif amount<=account1:
+                remainder=account1-amount
+                print("You have", remainder, "left") 
+                #break #burada break dersen tüm whiledan çıkar bir daah da işlem sormaz.
+
+        elif account=='account2':
+            amount=int(input("Enter the amount to withdraw: "))
+            if amount>account2:
+                print("Sorry, insufficient balance.")
+            elif amount<=account2:
+                remainder=account2-amount
+                print("You have", remainder, "left")
+                
+
+    elif transaction=='3':  
+        print("Which account you will invest money?")
+        account=input()
+        amount=int(input("Enter the amount you invest: "))
+        # Step5: Check the amount and increase the money in accounts.                               
+        if account=='account1':
+            account1=account1+amount
+            print("You have",account1," dolars in account1 just now.")
+            
+
+        elif account=='account2':
+            account2=account2+amount
+            print("You have",account2," dolars in account2 just now.")
+            
+
+    elif transaction=='4':
+        print("Enter the account you want to send money: ")
+        account=input()
+        amount=int(input("Enter the amount you want to send: "))
+        # Step6: Make comparison between amount and accounts. Update the money in accounts.
+        if account=='account1':
+            if amount>account2:
+                print("Insufficient balance")
+            elif amount<=account2:
+                account2=account2-amount
+                account1=account1+amount  
+                print("You have", account2, "dolars left in account2.")   
+                print("You have", account1, "dolars just now in account1.")
+
+         
+        
+        elif account=='account2':
+            if amount>account1:
+                print("Insufficient balance. Pleaase try with less amount")
+            elif amount<=account2:    
+                account1=account1-amount
+                account2=account2+amount  
+                print("You have", account1, "dolars left in account1.")   
+                print("You have", account2, "dolars just now in account2.") 
+               
+                  
