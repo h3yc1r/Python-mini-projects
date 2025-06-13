@@ -1,0 +1,17 @@
+#Author: Hacer AFLAZ
+#GUESSING GAME WITH RANDOM
+
+import random
+
+number=random.randint(0,100)
+number2=int(input("Enter your guess: "))
+
+# Step1: Compare random number and the number user typed.
+if number2>number:
+    print("The number you type is bigger.Please go down!") 
+
+elif number2<number:
+    print("The number you type is smaller. Please go up!") 
+
+elif number2==number:
+    print("Congrats, Your guess is correct:)") 
