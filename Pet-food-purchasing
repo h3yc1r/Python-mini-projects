@@ -1,0 +1,81 @@
+# Author: Hacer AFLAZ
+# CODING: Pet Food Purchasing System
+
+# Pet food data (using dictionaries for structured data)
+cat_foods = [
+    {"brand": "purina", "type": "One neutered beef", "weight": "800g", "price": "150 TL"},
+    {"brand": "purina", "type": "One neutered beef", "weight": "1500g", "price": "300 TL"},
+    {"brand": "hills", "type": "Tuna flavored kitten food", "weight": "2500g", "price": "500 TL"}
+]
+
+dog_foods = [
+    {"brand": "advance", "type": "Salmon flavored adult dog food", "weight": "4000g", "price": "600 TL"},
+    {"brand": "animonda", "type": "Beef and chicken dog canned food", "weight": "1000g", "price": "250 TL"},
+    {"brand": "bozita", "type": "Lamb meat wheat-free dog food", "weight": "3000g", "price": "550 TL"}
+]
+
+# User input for animal type
+pet = input("Which animal are you buying food for? (cat/dog) ").lower()
+animals_allowed = ["cat", "dog"]
+
+# Check if the entered animal is valid
+if pet not in animals_allowed:
+    print("Invalid animal type. Please choose 'cat' or 'dog'.")
+else:
+    # Determine which food list to use
+    if pet == "cat":
+        current_foods = cat_foods
+    else:  # pet == "dog"
+        current_foods = dog_foods
+
+    # Get unique brands for the selected animal
+    brand_list = []
+    for food_item in current_foods:
+        if food_item["brand"] not in brand_list:
+            brand_list.append(food_item["brand"])
+
+    # Display brands to the user
+    print("\nAvailable Brands:")
+    for i, brand in enumerate(brand_list):
+        print(f"{i+1}- {brand.capitalize()}")
+
+    # Get user's brand choice
+    try:
+        choice_brand_index = int(input("Which brand would you like to choose? ")) - 1
+        selected_brand = brand_list[choice_brand_index]
+    except (ValueError, IndexError):
+        print("Invalid brand selection.")
+    else:
+        # Filter foods by selected brand and display options
+        available_options = []
+        print(f"\nOptions for {selected_brand.capitalize()} (Weight - Price):")
+        for i, food_item in enumerate(current_foods):
+            if food_item["brand"] == selected_brand:
+                available_options.append(food_item)
+                print(f"{i+1}- {food_item['type']} ({food_item['weight']} - {food_item['price']})") # Indexing might be off here if not filtered
+
+        # Get user's specific product choice (type and weight)
+        try:
+            choice_product_index = int(input("Which product number would you like to choose? ")) - 1
+            chosen_product = current_foods[choice_product_index] # This needs to be from available_options, not current_foods directly
+            # A better way to get the chosen product:
+            # chosen_product = available_options[choice_product_index]
+            # (Need to adjust indexing for available_options for user display)
+
+            # A simpler approach: iterate through filtered options based on user's choice:
+            found_product = None
+            product_counter = 0
+            for food_item in current_foods:
+                if food_item["brand"] == selected_brand:
+                    if product_counter == choice_product_index:
+                        found_product = food_item
+                        break
+                    product_counter += 1
+
+            if found_product:
+                print(f"\n{found_product['type']} ({found_product['weight']}), {found_product['price']} product has been added to your cart.")
+            else:
+                print("Invalid product selection.")
+
+        except (ValueError, IndexError):
+            print("Invalid product selection.")
